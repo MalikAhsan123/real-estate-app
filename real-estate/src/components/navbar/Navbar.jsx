@@ -1,0 +1,21 @@
+import React from 'react'
+import { Link } from 'react-router-dom';
+const Navbar = () => {
+  return (
+   <>
+        <div className='bg-[#05344A] text-white flex flex-col items-center py-4 space-y-5 md:space-y-0  md:flex-row md:justify-between md:items-center md:px-20 md:py-4 lg:px-40 ' >
+                <div className='text-sm font-bold'>Call us - 0302-7071104</div>
+                <div className='md:space-x-10 space-x-5'>
+                    <button className='bg-[#1290cb] px-6 py-2 rounded-3xl cursor-pointer hover:bg-black border-2 border-[#0776aa]'>Add Property</button>
+                    <a to = '/Register' className='hover:text-[#0776aa] cursor-pointer '>Register</a>
+                    <a to= '/login' className='hover:text-[#0776aa] cursor-pointer'>Login</a>
+                </div>
+        </div>
+        <div>
+
+        </div>
+   </>
+  )
+}
+
+export default Navbar
