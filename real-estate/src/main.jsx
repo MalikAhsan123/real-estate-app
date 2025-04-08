@@ -6,6 +6,7 @@ import Home from './modules/home/Home.jsx';
 import About from './modules/about/About.jsx';
 import Properties from './modules/properties/Properties.jsx';
 import Contact from './modules/conatct/Contact.jsx';
+import Form from './components/form/Form.jsx';
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom'
 
 const router = createBrowserRouter(
@@ -15,6 +16,8 @@ const router = createBrowserRouter(
       <Route path='about' element = {<About />} />
       <Route path='properties' element = {<Properties />} />
       <Route path='contact' element = {<Contact />} />
+      <Route path='register' element = {<Form isLogin = {false} />} />
+      <Route path='login' element = {<Form isLogin = {true} />} />
     </Route>
   )
 )

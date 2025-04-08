@@ -10,12 +10,12 @@ const Navbar = () => {
           <button className="bg-[#1290cb] px-6 py-2 rounded-3xl cursor-pointer hover:bg-black border-2 border-[#0776aa]">
             Add Property
           </button>
-          <a to="/Register" className="hover:text-[#0776aa] cursor-pointer ">
+          <Link to="/register" className="hover:text-[#0776aa] cursor-pointer ">
             Register
-          </a>
-          <a to="/login" className="hover:text-[#0776aa] cursor-pointer">
+          </Link>
+          <Link to="/login" className="hover:text-[#0776aa] cursor-pointer">
             Login
-          </a>
+          </Link>
         </div>
       </div>
       <div className="flex justify-between items-center bg-white px-40" >
