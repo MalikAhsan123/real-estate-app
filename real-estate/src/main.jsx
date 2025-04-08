@@ -2,7 +2,7 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.jsx'
-<<<<<<< Updated upstream
+
 import Home from './modules/home/Home.jsx';
 import About from './modules/about/About.jsx';
 import Properties from './modules/properties/Properties.jsx';
@@ -26,13 +26,9 @@ const router = createBrowserRouter(
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <RouterProvider router={router} />
-=======
-import About from './modules/about/About.jsx'
 
-createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    <App />
-    <About />
->>>>>>> Stashed changes
+
+
+
   </StrictMode>,
 )

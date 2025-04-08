@@ -1,13 +1,4 @@
 import React from 'react'
-<<<<<<< Updated upstream
-
-const About = () => {
-  return (
-    <div>
-      <h1>About</h1>
-    </div>
-  )
-=======
 import aboutImage from './asscets/bgimg1.jpg';
 import aboutImage2 from './asscets/bgimg2.png';
 import costImg from './asscets/cost.png';
@@ -18,6 +9,10 @@ import buyImg from './asscets/buy.png';
 import saleImg from './asscets/sale.png';
 import serviceImg from './asscets/service.png';
 import replaceImg from './asscets/replace.png';
+
+
+
+
 
 const About = () => {
     return (
@@ -120,7 +115,7 @@ const About = () => {
             </div>
         </div>
     )
->>>>>>> Stashed changes
+
 }
 
 export default About
