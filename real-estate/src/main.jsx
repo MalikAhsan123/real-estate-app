@@ -12,23 +12,15 @@ import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } 
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path='/' element = {<App />} >
-      <Route path='' element = {<Home />} />
-      <Route path='about' element = {<About />} />
-      <Route path='properties' element = {<Properties />} />
-      <Route path='contact' element = {<Contact />} />
-      <Route path='register' element = {<Form isLogin = {false} />} />
-      <Route path='login' element = {<Form isLogin = {true} />} />
+    <Route path='/' element={<App />} >
+      <Route path='' element={<Home />} />
+      <Route path='about' element={<About />} />
+      <Route path='properties' element={<Properties />} />
+      <Route path='contact' element={<Contact />} />
     </Route>
   )
 )
 
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    <RouterProvider router={router} />
-
-
-
-
-  </StrictMode>,
+  <RouterProvider router={router} />
 )

@@ -9,11 +9,6 @@ import buyImg from './asscets/buy.png';
 import saleImg from './asscets/sale.png';
 import serviceImg from './asscets/service.png';
 import replaceImg from './asscets/replace.png';
-
-
-
-
-
 const About = () => {
     return (
         <div className=''>
@@ -84,24 +79,24 @@ const About = () => {
                 <div className="service-text">
                     <div className=''>
                         <div className="flex justify-evenly align-center my-10 max-sm:flex-col max-sm:items-center ">
-                            <div className="services-element w-[35%] max-sm:w-[80%] max-sm:flex max-sm:flex-col max-sm:items-center">
+                            <div className="services-element flex items-center flex-col text-center w-[20%] max-sm:w-[80%] max-sm:flex max-sm:flex-col max-sm:items-center ">
                                 <img src={buyImg} alt="Image Not Found" className="" />
                                 <h2 className="text-2xl font-bold py-2">Buy Property</h2>
                                 <p className="max-sm:text-center">We buy various of properties as like various people who want to sale their properites with trust</p>
                             </div>
-                            <div className="services-element w-[35%] max-sm:w-[80%] max-sm:flex max-sm:flex-col max-sm:items-center">
+                            <div className="services-element flex items-center flex-col text-center w-[20%] max-sm:w-[80%] max-sm:flex max-sm:flex-col max-sm:items-center">
                                 <img src={saleImg} alt="Image Not Found" className="" />
                                 <h2 className="text-2xl font-bold py-2">Sale Property</h2>
                                 <p className="max-sm:text-center">We buy various of properties as like various people who want to sale their properites with trust</p>
                             </div>
                         </div>
                         <div className="flex justify-evenly align-center my-10  max-sm:flex-col max-sm:items-center">
-                            <div className="services-element w-[35%] max-sm:w-[80%] max-sm:flex max-sm:flex-col max-sm:items-center">
+                            <div className="services-element flex items-center flex-col text-center w-[20%] max-sm:w-[80%] max-sm:flex max-sm:flex-col max-sm:items-center">
                                 <img src={serviceImg} alt="Image Not Found" className="" />
                                 <h2 className="text-2xl font-bold py-2">Best Marketing</h2>
                                 <p className="max-sm:text-center">We buy various of properties as like various people who want to sale their properites with trust</p>
                             </div>
-                            <div className="services-element w-[35%] max-sm:w-[80%] max-sm:flex max-sm:flex-col max-sm:items-center">
+                            <div className="services-element flex items-center flex-col text-center w-[20%] max-sm:w-[80%] max-sm:flex max-sm:flex-col max-sm:items-center">
                                 <img src={replaceImg} alt="Image Not Found" className="" />
                                 <h2 className="text-2xl font-bold py-2">Minimum Cost</h2>
                                 <p className="max-sm:text-center">We buy various of properties as like various people who want to sale their properites with trust</p>
@@ -111,7 +106,7 @@ const About = () => {
                 </div>
             </div>
             <div className="member-section">
-                
+
             </div>
         </div>
     )
