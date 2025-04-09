@@ -1,11 +1,12 @@
 import { useState } from 'react'
-
+// import { StrictMode } from 'react'
 import Navbar from './components/navbar/Navbar';
 import { Outlet } from 'react-router-dom';
 
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
-import about from './modules/about/About.jsx'
+import About from './modules/about/About.jsx'
+import Footer from './components/footer/Footer.jsx'
 // import './App.css'
 
 
@@ -14,8 +15,11 @@ function App() {
 
   return (
     <>
-     <Navbar />
-     <Outlet />
+      <Navbar />
+      <Outlet />
+      <Footer />
+      {/* <h1 className='bg-red-500'>AhSAN</h1> */}
+      {/* <about /> */}
     </>
   )
 }
