@@ -10,10 +10,6 @@ import saleImg from './asscets/sale.png';
 import serviceImg from './asscets/service.png';
 import replaceImg from './asscets/replace.png';
 
-
-
-
-
 const About = () => {
     return (
         <div className=''>

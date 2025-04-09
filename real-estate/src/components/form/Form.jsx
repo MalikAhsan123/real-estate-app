@@ -1,7 +1,46 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import breadCrumb from "./assets/breadcrumb.jpg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { formSubmit } from "../../slices/auth/authSlice";
 const Form = ({ isLogin }) => {
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+
+  
+  const userState = useSelector((state) => state.user || {});
+const { success } = userState;
+console.log('success state', userState)
+
+
+
+  const [credential, setCredential] = useState({  ...(!isLogin && {
+    name: "",
+     lastName: ""
+  }), email: "", password: ""});
+
+
+  const onChange = (e) => {
+    setCredential({ ...credential, [e.target.name]: e.target.value })
+  }
+ 
+  const handleSubmit = async (e) => {
+    
+    e.preventDefault();
+    dispatch(formSubmit({credential, isLogin}));
+    console.log(credential)
+    if (success) {
+      navigate("/");
+    }
+    
+  }
+
+  
+ 
+
+
   return (
     <>
       <div className="overflow-x-hidden">
@@ -14,7 +53,7 @@ const Form = ({ isLogin }) => {
         <div className="w-full py-40 flex justify-center items-center relative ">
           <div className={`absolute  ${isLogin ? "top-[138px]" : "top-[77px]"} left-[570px] bg-[#F1F1F1] px-10 py-20`} >
             <form
-              action=""
+              onSubmit={handleSubmit}
               className="flex justify-center items-center flex-col"
             >
               <div className="text-2xl font-bold text-[#25A5DE] mb-10">
@@ -27,8 +66,10 @@ const Form = ({ isLogin }) => {
                       type="text"
                       name="name"
                       placeholder="Name"
+                      value={credential.name}
                       required
                       minLength={3}
+                      onChange={onChange}
                       className="w-2xs px-2 py-4 outline-0 border-b-[1px] border-b-[#25A5DE]"
                     />
                   </div>
@@ -37,8 +78,10 @@ const Form = ({ isLogin }) => {
                       type="text"
                       name="lastName"
                       placeholder="Last name"
+                      value = {credential.lastName}
                       required
                       minLength={3}
+                      onChange={onChange}
                       className="w-2xs px-2 py-4 outline-0 border-b-[1px] border-b-[#25A5DE]"
                     />
                   </div>
@@ -50,7 +93,9 @@ const Form = ({ isLogin }) => {
                   type="email"
                   name="email"
                   placeholder="Email"
+                  value={credential.email}
                   required
+                  onChange={onChange}
                   className="w-2xs px-2 py-4 outline-0 border-b-[1px] border-b-[#25A5DE]"
                 />
               </div>
@@ -59,8 +104,10 @@ const Form = ({ isLogin }) => {
                   type="text"
                   name="password"
                   placeholder="Password"
+                  value={credential.password}
                   required
                   minLength={5}
+                  onChange={onChange}
                   className="w-2xs px-2 py-4 outline-0 border-b-[1px] border-b-[#25A5DE]"
                 />
               </div>
@@ -79,7 +126,8 @@ const Form = ({ isLogin }) => {
             <div className={`${isLogin ? "pl-20" : 'pl-28'}`}>
               <Link to={`${isLogin ? "/register" : "/login"}`}>
                 <button
-                  type="submit"
+                
+                  
                   className="bg-white text-[#25A5DE] py-2 px-8 font-bold rounded-full cursor-pointer hover:bg-black hover:text-white"
                 >
                   {isLogin ? "Create an account" : "Login"}
