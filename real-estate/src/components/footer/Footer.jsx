@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom'
 const Footer = () => {
     return (
         <div>
-            <div className="footer-section flex justify-around bg-cover text-white py-8" style={{ backgroundImage: `url(${bgfooter})` }}>
+            <div className="footer-section flex justify-between bg-cover text-white py-8 px-10" style={{ backgroundImage: `url(${bgfooter})` }}>
                 <div className="footer-element w-[20%]">
                     <h2 className="footer-text text-2xl font-bold ">About</h2>
                     <p className="footer-para py-5">Ortiz is the best and popular real estate to you how all this mistaolt cing pleasure and praising ained wasnad pain was prexplain</p>
@@ -17,7 +17,7 @@ const Footer = () => {
                         <img src={paperPlane} alt="Image Not Found" className='w-4 invert' />
                     </div>
                 </div>
-                <div className="footer-element">
+                <div className="footer-element w-[25%]">
                     <h1 className="text-2xl font-bold">Popular Posts</h1>
                     <div className="py-3.5">
                         <h2 className='font-bold'>Duplex Villa Design</h2>
@@ -29,7 +29,7 @@ const Footer = () => {
                         <p className="">Lorem ipsum dolor sit amet, tur acinglit sed do eius</p>
                     </div>
                 </div>
-                <div className="footer-element">
+                <div className="footer-element w-[15%]">
                     <h1 className="text-2xl font-bold">Quick Link</h1>
                     <div className="flex flex-col mt-4">
                         <Link to="/" className='mb-3 hover:text-amber-100'>Home</Link>
@@ -38,7 +38,7 @@ const Footer = () => {
                         <Link to="/contact" className='mb-3 hover:text-amber-100'>Contact</Link>
                     </div>
                 </div>
-                <div className="footer-element">
+                <div className="footer-element w-[25%]">
                     <div className="">
                         <h1 className="text-2xl font-bold">Contact Us</h1>
                         <div className="flex items-center mt-4">
