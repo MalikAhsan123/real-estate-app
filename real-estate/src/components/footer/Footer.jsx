@@ -51,8 +51,8 @@ const Footer = () => {
                                     <img src={locationImg} alt="Image Not Found" className="w-5 invert" />
                                 </div>
                                 <div className="">
-                                    <p className="">533, AK Town, Samundri</p>
-                                    <p className="">533 , Punjab, Pakistan</p>
+                                    <p className="">256, 1st AVE, Manchester</p>
+                                    <p className="">125 , Noth England</p>
                                 </div>
                             </div>
                             <div className="flex items-center my-4">
@@ -60,8 +60,8 @@ const Footer = () => {
                                     <img src={phoneImg} alt="Image Not Found" className="w-5 invert" />
                                 </div>
                                 <div className="">
-                                    <p className="">+92 3027071104</p>
-                                    <p className="">+92 3260327533</p>
+                                    <p className="">88 (012) 356 958 45</p>
+                                    <p className="">88 (012) 356 958 45</p>
                                 </div>
                             </div> <div className="flex items-center">
                                 <div className="mr-4">
