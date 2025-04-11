@@ -14,7 +14,11 @@ const Form = ({ isLogin }) => {
 const { success } = userState;
 console.log('success state', userState)
 
-
+useEffect(() => {
+  if (success) {
+    navigate("/");
+  }
+}, [success])
 
   const [credential, setCredential] = useState({  ...(!isLogin && {
     name: "",
@@ -31,9 +35,7 @@ console.log('success state', userState)
     e.preventDefault();
     dispatch(formSubmit({credential, isLogin}));
     console.log(credential)
-    if (success) {
-      navigate("/");
-    }
+   
     
   }
 

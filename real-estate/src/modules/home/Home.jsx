@@ -2,6 +2,7 @@ import React from "react";
 import HomeBg from "./assetes/homeBg.jpg";
 
 const Home = () => {
+  
   return (
     <>
       <div
