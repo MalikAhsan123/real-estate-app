@@ -120,9 +120,10 @@ router.post(
         success,
         token,
         login: true,
-        user: { name: user.name,
-          //  lastName: user.lastName,
-            email: user.email, password: user.password },
+        user: { name: user.name, email: user.email, password: user.password, 
+           //  lastName: user.lastName,
+         },
+            
       });
       
     } catch (error) {

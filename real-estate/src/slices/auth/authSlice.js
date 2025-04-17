@@ -43,11 +43,14 @@ const authSlice = createSlice({
     extraReducers: (builder) => {
        
         builder.addCase(formSubmit.fulfilled, (state, action) => {
-            state.success = action.payload.success;
+            
             state.user = action.payload.data;
             state.login = action.payload.login;
-            state.isLoggedIn = true;
-            if (action.payload.success) {
+            console.log("actionLogin", action.payload.login)
+            state.success = action.payload.success;
+            if (action.payload.success && action.payload.login) {
+                state.isLoggedIn = true;
+                
                 localStorage.setItem('token', action.payload.token);
                 localStorage.setItem('success', action.payload.success);
                 localStorage.setItem('userDetail', JSON.stringify(action.payload.user));

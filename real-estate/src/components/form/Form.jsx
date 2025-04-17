@@ -21,17 +21,20 @@ console.log('success state', userState)
 //     navigate("/");
 //   }
 // }, [success])
-  useEffect(() => {
-    console.log("success", userState.success);
-    if (userState.success) {
+useEffect(() => {
+  if (userState.success) {
+    if (isLogin && userState.isLoggedIn) {
       toast.success("Logged in successfully");
       navigate("/");
-    } else if (userState.error) {
-      console.log('error', userState.error)
-      toast.error(userState.msg);
+    } else if (!isLogin) {
+      toast.success("Registered successfully. Please log in.");
       dispatch(clearAuthState());
     }
-  }, [userState.success, userState.error, isLogin]);
+  } else if (userState.error) {
+    toast.error(userState.msg);
+    dispatch(clearAuthState());
+  }
+}, [userState.success, userState.error, isLogin]);
 
   const [credential, setCredential] = useState({  ...(!isLogin && {
     name: "",
@@ -49,8 +52,11 @@ console.log('success state', userState)
     e.preventDefault();
     // dispatch(formSubmit({credential, isLogin}));
     setCredential({name: "", lastName: "", email: "", password: "", confirmPassword: ""})
-    if(credential.password === credential.confirmPassword ){
+    if(credential.password === credential.confirmPassword && isLogin === false ){
     dispatch(formSubmit({credential, isLogin}));
+    }else if(isLogin){
+      dispatch(formSubmit({credential, isLogin}));
+      
     }else{
       toast.error("Password not confirm");
     }
