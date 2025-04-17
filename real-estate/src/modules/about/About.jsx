@@ -1,19 +1,19 @@
 import React from 'react'
-import aboutImage from './asscets/bgimg1.jpg';
-import aboutImage2 from './asscets/bgimg2.png';
-import costImg from './asscets/cost.png';
-import marktingImg from './asscets/markting.png';
-import searchImg from './asscets/search.png';
-import secureImg from './asscets/secure.png';
-import buyImg from './asscets/buy.png';
-import saleImg from './asscets/sale.png';
-import serviceImg from './asscets/service.png';
-import replaceImg from './asscets/replace.png';
-import clint1Img from './asscets/01.png';
-import clint2Img from './asscets/02.png';
-import clint3Img from './asscets/03.png';
-import clint4Img from './asscets/04.png';
-import clint5Img from './asscets/05.png';
+import aboutImage from './assets/bgimg1.jpg';
+import aboutImage2 from './assets/bgimg2.png';
+import costImg from './assets/cost.png';
+import marktingImg from './assets/markting.png';
+import searchImg from './assets/search.png';
+import secureImg from './assets/secure.png';
+import buyImg from './assets/buy.png';
+import saleImg from './assets/sale.png';
+import serviceImg from './assets/service.png';
+import replaceImg from './assets/replace.png';
+import clint1Img from './assets/01.png';
+import clint2Img from './assets/02.png';
+import clint3Img from './assets/03.png';
+import clint4Img from './assets/04.png';
+import clint5Img from './assets/05.png';
 
 
 const About = () => {
