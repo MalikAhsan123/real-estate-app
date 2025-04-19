@@ -1,11 +1,15 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-export const formSubmit = createAsyncThunk("formSubmit", async ({credential, isLogin}) => {
-    const response = await axios.post(`http://localhost:3000/api/auth/${isLogin ? 'login' : 'createuser'}`, credential);
-    const data = response.data
-    console.log('data', data);
-    return data;
+export const formSubmit = createAsyncThunk("formSubmit", async ({credential, isLogin}, { rejectWithValue }) => {
+   try {
+     const response = await axios.post(`http://localhost:3000/api/auth/${isLogin ? 'login' : 'createuser'}`, credential);
+     const data = response.data
+     console.log('data', data);
+     return data;
+   } catch (error) {
+    return rejectWithValue(error.response.data);
+   }
 })
 
 const authSlice = createSlice({
@@ -16,7 +20,7 @@ const authSlice = createSlice({
         token: localStorage.getItem("token") || "",
         user: localStorage.getItem("userDetail") ? JSON.parse(localStorage.getItem("userDetail")) : null,
         success: localStorage.getItem("success") ? true : false,
-        error: "",
+        error: false,
         login: false,
         isLoggedIn: localStorage.getItem("token") ? true : false, // this means "true" if token exists
      },
@@ -30,15 +34,23 @@ const authSlice = createSlice({
           localStorage.removeItem("success");
           localStorage.removeItem("userDetail");
         },
+        clearAuthState: (state) => {
+            state.error = false;
+            state.msg = "";
+            state.success = false;
+          },
       },
     extraReducers: (builder) => {
        
         builder.addCase(formSubmit.fulfilled, (state, action) => {
-            state.success = action.payload.success;
+            
             state.user = action.payload.data;
             state.login = action.payload.login;
-            state.isLoggedIn = true;
-            if (action.payload.success) {
+            console.log("actionLogin", action.payload.login)
+            state.success = action.payload.success;
+            if (action.payload.success && action.payload.login) {
+                state.isLoggedIn = true;
+                
                 localStorage.setItem('token', action.payload.token);
                 localStorage.setItem('success', action.payload.success);
                 localStorage.setItem('userDetail', JSON.stringify(action.payload.user));
@@ -46,9 +58,12 @@ const authSlice = createSlice({
             
         })
         .addCase(formSubmit.rejected, (state, action) => {
-            state.error = action.payload.error;
+            // console.log('error', action.payload.error)
+            state.error = action.payload.isError;
+            state.msg = action.payload.errorMsg;
+            
         })
     }
 })
-export const { logout } = authSlice.actions;
+export const { logout, clearAuthState } = authSlice.actions;
 export default authSlice.reducer;

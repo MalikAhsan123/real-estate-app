@@ -3,6 +3,9 @@ import breadCrumb from "./assets/breadcrumb.jpg";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { formSubmit } from "../../slices/auth/authSlice";
+import { toast } from "react-toastify";
+import { clearAuthState } from "../../slices/auth/authSlice";
+import { FiEye, FiEyeOff } from "react-icons/fi";
 const Form = ({ isLogin }) => {
 
   const navigate = useNavigate();
@@ -11,20 +14,34 @@ const Form = ({ isLogin }) => {
 
   
   const userState = useSelector((state) => state.user || {});
-const { success } = userState;
-console.log('success state', userState)
 
+console.log('success state', userState)
+// useEffect(() => {
+//   if (success) {
+//     navigate("/");
+//   }
+// }, [success])
 useEffect(() => {
-  if (success) {
-    navigate("/");
+  if (userState.success) {
+    if (isLogin && userState.isLoggedIn) {
+      toast.success("Logged in successfully");
+      navigate("/");
+    } else if (!isLogin) {
+      toast.success("Registered successfully. Please log in.");
+      dispatch(clearAuthState());
+    }
+  } else if (userState.error) {
+    toast.error(userState.msg);
+    dispatch(clearAuthState());
   }
-}, [success])
+}, [userState.success, userState.error, isLogin]);
 
   const [credential, setCredential] = useState({  ...(!isLogin && {
     name: "",
      lastName: ""
   }), email: "", password: ""});
-
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false)
 
   const onChange = (e) => {
     setCredential({ ...credential, [e.target.name]: e.target.value })
@@ -33,7 +50,16 @@ useEffect(() => {
   const handleSubmit = async (e) => {
     
     e.preventDefault();
+    // dispatch(formSubmit({credential, isLogin}));
+    setCredential({name: "", lastName: "", email: "", password: "", confirmPassword: ""})
+    if(credential.password === credential.confirmPassword && isLogin === false ){
     dispatch(formSubmit({credential, isLogin}));
+    }else if(isLogin){
+      dispatch(formSubmit({credential, isLogin}));
+      
+    }else{
+      toast.error("Password not confirm");
+    }
     console.log(credential)
    
     
@@ -76,7 +102,7 @@ useEffect(() => {
                     />
                   </div>
                   <div>
-                    <input
+                    {/* <input
                       type="text"
                       name="lastName"
                       placeholder="Last name"
@@ -85,7 +111,7 @@ useEffect(() => {
                       minLength={3}
                       onChange={onChange}
                       className="w-2xs px-2 py-4 outline-0 border-b-[1px] border-b-[#25A5DE]"
-                    />
+                    /> */}
                   </div>
                 </>
               )}
@@ -101,9 +127,9 @@ useEffect(() => {
                   className="w-2xs px-2 py-4 outline-0 border-b-[1px] border-b-[#25A5DE]"
                 />
               </div>
-              <div>
+              <div className="relative">
                 <input
-                  type="text"
+                  type={showPassword ? "text" : "password"}
                   name="password"
                   placeholder="Password"
                   value={credential.password}
@@ -112,7 +138,32 @@ useEffect(() => {
                   onChange={onChange}
                   className="w-2xs px-2 py-4 outline-0 border-b-[1px] border-b-[#25A5DE]"
                 />
+                <div
+                  className="absolute right-2 top-1/3 cursor-pointer"
+                  onClick={() => setShowPassword(!showPassword)}
+                >
+                  {showPassword ? <FiEyeOff size={24} /> : <FiEye size={24} />}
+                </div>
               </div>
+              {!isLogin && (
+                <div className="relative">
+                  <input
+                    type={showConfirmPassword ? "text" : "password"}
+                    name="confirmPassword"
+                    placeholder="Confirm Password"
+                    value={credential.confirmPassword}
+                    required
+                    onChange={onChange}
+                    className="w-2xs px-2 py-4 outline-0 border-b-[1px] border-b-[#25A5DE]"
+                  />
+                  <div
+                  className="absolute right-2 top-1/3 cursor-pointer"
+                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                >
+                  {showConfirmPassword ? <FiEyeOff size={24} /> : <FiEye size={24} />}
+                </div>
+                </div>
+              )}
               <button
                 type="submit"
                 className="bg-[#25A5DE] text-white py-2 px-8 rounded-full mt-10 cursor-pointer hover:bg-black"
@@ -144,3 +195,5 @@ useEffect(() => {
 };
 
 export default Form;
+              
+  
