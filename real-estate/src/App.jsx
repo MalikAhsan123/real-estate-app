@@ -7,9 +7,12 @@ import Footer from './components/footer/Footer.jsx'
 function App() {
   return (
     <>
-      <Navbar />
+    <div className='overflow-x-hidden'>
+    <Navbar />
       <Outlet />
       <Footer />
+    </div>
+     
     </>
   )
 }

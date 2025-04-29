@@ -1,0 +1,6 @@
+  <div className="flex justify-center items-center space-x-2 border-1 border-[#a7a5a5] py-1 px-2 cursor-pointer">
+              <FaCircleUser className="text-[20px]" />
+                   <p className="text-sm">{userDetail?.name}</p>
+                  {/* <p className="text-sm">{userDetail?.lastName}</p> 
+                  <p className="text-sm">{userDetail?.email}</p> */}
+              </div>
