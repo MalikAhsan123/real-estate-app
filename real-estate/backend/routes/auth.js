@@ -18,7 +18,7 @@ router.post(
   async (req, res) => {
     let success = false;
     let isError = false;
-    const { name, lastName, email, password } = req.body;
+    const { name, email, password } = req.body;
     const error = await validationResult(req);
     if (!error.isEmpty()) {
       return res.status(400).json({ errors: error.array() });
@@ -55,11 +55,12 @@ router.post(
         success,
         token,
         login: false,
-        user: { name: user.name, email: user.email, password: user.password,
+        user: {
+          name: user.name, email: user.email, password: user.password,
           // lastName: user.lastName
-         },
+        },
       });
-      
+
     } catch (error) {
       console.error(error.message);
       isError = true;
@@ -120,12 +121,13 @@ router.post(
         success,
         token,
         login: true,
-        user: { name: user.name, email: user.email, password: user.password, 
-           //  lastName: user.lastName,
-         },
-            
+        user: {
+          name: user.name, email: user.email, password: user.password,
+          //  lastName: user.lastName,
+        },
+
       });
-      
+
     } catch (error) {
       console.error(error.message);
       isError = true;

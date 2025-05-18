@@ -17,6 +17,7 @@ import clint5Img from './assets/05.png';
 
 
 const About = () => {
+    
     return (
         <div className=''>
             <div className="about-container w-[100%]" >

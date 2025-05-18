@@ -7,7 +7,7 @@ import Footer from './components/footer/Footer.jsx'
 function App() {
   return (
     <>
-      <Navbar />
+      {/* <Navbar /> */}
       <Outlet />
       <Footer />
     </>

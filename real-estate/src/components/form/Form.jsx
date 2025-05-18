@@ -12,61 +12,63 @@ const Form = ({ isLogin }) => {
   const dispatch = useDispatch();
 
 
-  
+
   const userState = useSelector((state) => state.user || {});
 
-console.log('success state', userState)
-// useEffect(() => {
-//   if (success) {
-//     navigate("/");
-//   }
-// }, [success])
-useEffect(() => {
-  if (userState.success) {
-    if (isLogin && userState.isLoggedIn) {
-      toast.success("Logged in successfully");
-      navigate("/");
-    } else if (!isLogin) {
-      toast.success("Registered successfully. Please log in.");
+  console.log('success state', userState)
+  // useEffect(() => {
+  //   if (success) {
+  //     navigate("/");
+  //   }
+  // }, [success])
+  useEffect(() => {
+    if (userState.success) {
+      if (isLogin && userState.isLoggedIn) {
+        toast.success("Logged in successfully");
+        navigate("/");
+      } else if (!isLogin) {
+        toast.success("Registered successfully. Please log in.");
+        dispatch(clearAuthState());
+      }
+    } else if (userState.error) {
+      toast.error(userState.msg);
       dispatch(clearAuthState());
     }
-  } else if (userState.error) {
-    toast.error(userState.msg);
-    dispatch(clearAuthState());
-  }
-}, [userState.success, userState.error, isLogin]);
+  }, [userState.success, userState.error, isLogin]);
 
-  const [credential, setCredential] = useState({  ...(!isLogin && {
-    name: "",
-     lastName: ""
-  }), email: "", password: ""});
+  const [credential, setCredential] = useState({
+    ...(!isLogin && {
+      name: "",
+      lastName: ""
+    }), email: "", password: ""
+  });
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
 
   const onChange = (e) => {
     setCredential({ ...credential, [e.target.name]: e.target.value })
   }
- 
+
   const handleSubmit = async (e) => {
-    
+
     e.preventDefault();
     // dispatch(formSubmit({credential, isLogin}));
-    setCredential({name: "", lastName: "", email: "", password: "", confirmPassword: ""})
-    if(credential.password === credential.confirmPassword && isLogin === false ){
-    dispatch(formSubmit({credential, isLogin}));
-    }else if(isLogin){
-      dispatch(formSubmit({credential, isLogin}));
-      
-    }else{
+    setCredential({ name: "", lastName: "", email: "", password: "", confirmPassword: "" })
+    if (credential.password === credential.confirmPassword && isLogin === false) {
+      dispatch(formSubmit({ credential, isLogin }));
+    } else if (isLogin) {
+      dispatch(formSubmit({ credential, isLogin }));
+
+    } else {
       toast.error("Password not confirm");
     }
     console.log(credential)
-   
-    
+
+
   }
 
-  
- 
+
+
 
 
   return (
@@ -157,11 +159,11 @@ useEffect(() => {
                     className="w-2xs px-2 py-4 outline-0 border-b-[1px] border-b-[#25A5DE]"
                   />
                   <div
-                  className="absolute right-2 top-1/3 cursor-pointer"
-                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                >
-                  {showConfirmPassword ? <FiEyeOff size={24} /> : <FiEye size={24} />}
-                </div>
+                    className="absolute right-2 top-1/3 cursor-pointer"
+                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                  >
+                    {showConfirmPassword ? <FiEyeOff size={24} /> : <FiEye size={24} />}
+                  </div>
                 </div>
               )}
               <button
@@ -179,8 +181,8 @@ useEffect(() => {
             <div className={`${isLogin ? "pl-20" : 'pl-28'}`}>
               <Link to={`${isLogin ? "/register" : "/login"}`}>
                 <button
-                
-                  
+
+
                   className="bg-white text-[#25A5DE] py-2 px-8 font-bold rounded-full cursor-pointer hover:bg-black hover:text-white"
                 >
                   {isLogin ? "Create an account" : "Login"}
@@ -195,5 +197,5 @@ useEffect(() => {
 };
 
 export default Form;
-              
-  
+
+
