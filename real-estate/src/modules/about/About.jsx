@@ -81,8 +81,8 @@ const About = () => {
             </div>
             <div className="services-secion px-20 py-10 max-md:px-5">
                 <div className="service-heading flex flex-col items-center">
-                    <h1 className="text-3xl font-bold mb-5">Services that we provide</h1>
-                    <p className="w-2/4 text-center">Ortiz is one of the most popular real estate company all around USA. You can find your dream property or build property with us. We always provide importance to our customer</p>
+                    <h1 className="text-3xl font-bold mb-5 text-center">Services that we provide</h1>
+                    <p className="w-2/4 text-center max-sm:w-[100%] max-sm:px-2">Ortiz is one of the most popular real estate company all around USA. You can find your dream property or build property with us. We always provide importance to our customer</p>
                 </div>
                 <div className="service-text">
                     <div className=''>
