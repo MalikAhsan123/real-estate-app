@@ -168,7 +168,7 @@ const Form = ({ isLogin }) => {
               )}
               <button
                 type="submit"
-                className="bg-[#25A5DE] text-white py-2 px-8 rounded-full mt-10 cursor-pointer hover:bg-black"
+                className="bg-[#25A5DE] text-white py-2 px-8 rounded-full mt-10 cursor-pointer hover:bg-black duration-500"
               >
                 {isLogin ? "Login" : "Create an account"}
               </button>
@@ -183,7 +183,7 @@ const Form = ({ isLogin }) => {
                 <button
 
 
-                  className="bg-white text-[#25A5DE] py-2 px-8 font-bold rounded-full cursor-pointer hover:bg-black hover:text-white"
+                  className="bg-white text-[#25A5DE] py-2 px-8 font-bold rounded-full cursor-pointer hover:bg-black duration-500 hover:text-white"
                 >
                   {isLogin ? "Create an account" : "Login"}
                 </button>
