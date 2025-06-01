@@ -1,5 +1,3 @@
-
-// const express = require("express");
 import express from "express";
 
 // const cors = require("cors");
@@ -9,9 +7,9 @@ import cors from "cors";
 import connectToMongo from "./db/db.js";
 
 
-const express = require("express");
-const cors = require("cors");
-const connectToMongo = require('./db/db');
+// const express = require("express");
+// const cors = require("cors");
+// const connectToMongo = require('./db/db');
 
 connectToMongo();
 const app = express();
