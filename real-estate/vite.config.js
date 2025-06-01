@@ -8,4 +8,9 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
+  // server: {
+  //   // 🔥 remove the proxy to prevent masking origin
+  //   cors: true,
+  // },
+  
 })

@@ -72,6 +72,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import Cookies from "js-cookie";
+// import { getUsers } from "../allUsers/getuserSlice";
+
 
 export const formSubmit = createAsyncThunk(
   "formSubmit",
@@ -86,14 +88,16 @@ export const formSubmit = createAsyncThunk(
       } else {
         url = "http://localhost:3000/api/auth/createuser";
       }
+
       const response = await axios.post(url, credential);
-      const data = response.data;
-      return data;
+
+      return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
     }
   }
 );
+
 
 const authSlice = createSlice({
   name: "user",
@@ -106,6 +110,7 @@ const authSlice = createSlice({
     success: Cookies.get("success") ? true : false,
     error: false,
     login: false,
+    refresh: false,
     isLoggedIn: Cookies.get("token") ? true : false,
     admin: false,
     adminToken:  Cookies.get("adminToken") || "",
@@ -130,6 +135,9 @@ const authSlice = createSlice({
       state.msg = "";
       state.success = false;
     },
+    refreshComponent: (state) => {
+      state.refresh = true
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -150,6 +158,12 @@ const authSlice = createSlice({
             Cookies.set("success", action.payload.success);
             Cookies.set("adminDetail", JSON.stringify(action.payload.user));
           }
+          // if (!action.payload.login && !action.payload.admin) {
+          //   // Extra dispatch hook needed
+          //   setTimeout(() => {
+          //     window.dispatch(getUsers()); // we'll define `window.dispatch`
+          //   }, 0);
+          // }
         }
       })
       .addCase(formSubmit.rejected, (state, action) => {
@@ -159,5 +173,5 @@ const authSlice = createSlice({
   },
 });
 
-export const { logout, clearAuthState } = authSlice.actions;
+export const { logout, clearAuthState, refreshComponent } = authSlice.actions;
 export default authSlice.reducer;

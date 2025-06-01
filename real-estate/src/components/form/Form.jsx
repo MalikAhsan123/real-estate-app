@@ -6,92 +6,69 @@ import { formSubmit } from "../../slices/auth/authSlice";
 import { toast } from "react-toastify";
 import { clearAuthState } from "../../slices/auth/authSlice";
 import { FiEye, FiEyeOff } from "react-icons/fi";
+import { getUsers } from "../../slices/allUsers/getuserSlice";
+
 const Form = ({ isLogin }) => {
-
- 
-
-
-  
-  
-
-// console.log('success state', userState)
-// useEffect(() => {
-//   if (success) {
-//     navigate("/");
-//   }
-// }, [success])
-// useEffect(() => {
-  // if (userState.success) {
-  //   if (isLogin && userState.isLoggedIn) {
-  //     toast.success("Logged in successfully");
-  //     navigate("/");
-  //   } else if (!isLogin) {
-  //     toast.success("Registered successfully. Please log in.");
-  //     dispatch(clearAuthState());
-  //   }
-  // } else if (userState.error) {
-  //   toast.error(userState.msg);
-  //   dispatch(clearAuthState());
-  // }
-// }, [userState.success, userState.error, isLogin]);
-const navigate = useNavigate();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const userState = useSelector((state) => state.user || {});
   const userLogin = useCallback(() => {
-    
     if (userState.success) {
       if (isLogin && userState.isLoggedIn) {
         toast.success("Logged in successfully");
         navigate("/");
       } else if (!isLogin) {
         toast.success("Registered successfully. Please log in.");
-        dispatch(clearAuthState());
       }
     } else if (userState.error) {
       toast.error(userState.msg);
       dispatch(clearAuthState());
-  }
-  }, [userState.success, userState.error, isLogin])
+    }
+  }, [userState.success, userState.error, isLogin]);
 
+  useEffect(() => {
+    userLogin();
+  }, [userState.success, userState.error, isLogin]);
 
-useEffect(() => {
-  userLogin();
-},[userState.success, userState.error, isLogin])
-
-
-  const [credential, setCredential] = useState({  ...(!isLogin && {
-    name: "",
-     lastName: ""
-  }), email: "", password: ""});
+  const [credential, setCredential] = useState({
+    ...(!isLogin && {
+      name: "",
+      lastName: "",
+    }),
+    email: "",
+    password: "",
+  });
   const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false)
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const onChange = (e) => {
-    setCredential({ ...credential, [e.target.name]: e.target.value })
-  }
- 
+    setCredential({ ...credential, [e.target.name]: e.target.value });
+  };
+
   const handleSubmit = async (e) => {
-    
     e.preventDefault();
-    // dispatch(formSubmit({credential, isLogin}));
-     if(credential.password === credential.confirmPassword && isLogin === false ){
-    dispatch(formSubmit({credential, isLogin, isAdmin : false}));
-    }else if(isLogin){
-      dispatch(formSubmit({credential, isLogin, isAdmin: false}));
-      
-    }else{
+    if (
+      credential.password === credential.confirmPassword &&
+      isLogin === false
+    ) {
+      const response = await dispatch(
+        formSubmit({ credential, isLogin, isAdmin: false })
+      );
+    } else if (isLogin) {
+      dispatch(formSubmit({ credential, isLogin, isAdmin: false }));
+    } else {
       toast.error("Password not confirm");
     }
-    setCredential({name: "", lastName: "", email: "", password: "", confirmPassword: ""})
-   
-    console.log(credential)
-   
-    
-  }
+    setCredential({
+      name: "",
+      lastName: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+    });
 
-  
- 
-
+    console.log(credential);
+  };
 
   return (
     <>
@@ -100,28 +77,30 @@ useEffect(() => {
           className="w-screen h-52 flex justify-center items-center"
           style={{ backgroundImage: `url(${breadCrumb})` }}
         >
-          <div className="text-white text-3xl font-bold">{isLogin ? "Login" : "Register"}</div>
+          <div className="text-white text-3xl font-bold">
+            {isLogin ? "Login" : "Register"}
+          </div>
         </div>
         <div className="w-full py-30 lg:py-40 flex justify-center items-center flex-col lg:flex-row ">
-          
           <div className="bg-[#25A5DE] w-[70%] lg:w-[30%] h-96 flex justify-center flex-col space-y-5 ">
-          
             <div className="text-white text-lg font-bold  pl-0 text-center lg:text-start lg:pl-16">
-              {isLogin ? "Already Do not have account" : 'Already have an account?'}
+              {isLogin
+                ? "Already Do not have account"
+                : "Already have an account?"}
             </div>
-            <div className={`${isLogin ? " pl-0 lg:pl-20" : ' pl-0 lg:pl-28'} text-center lg:text-start`}>
+            <div
+              className={`${
+                isLogin ? " pl-0 lg:pl-20" : " pl-0 lg:pl-28"
+              } text-center lg:text-start`}
+            >
               <Link to={`${isLogin ? "/register" : "/login"}`}>
-                <button
-                
-                  
-                  className="bg-white text-[#25A5DE] py-2 px-8 font-bold rounded-full cursor-pointer hover:bg-black hover:text-white"
-                >
+                <button className="bg-white text-[#25A5DE] py-2 px-8 font-bold rounded-full cursor-pointer hover:bg-black hover:text-white">
                   {isLogin ? "Create an account" : "Login"}
                 </button>
               </Link>
             </div>
           </div>
-          <div className={`bg-[#F1F1F1] px-10 py-20 w-[70%] lg:w-auto`} >
+          <div className={`bg-[#F1F1F1] px-10 py-20 w-[70%] lg:w-auto`}>
             <form
               onSubmit={handleSubmit}
               className="flex justify-center items-center flex-col"
@@ -148,7 +127,7 @@ useEffect(() => {
                       type="text"
                       name="lastName"
                       placeholder="last name"
-                      value = {credential.lastName}
+                      value={credential.lastName}
                       required
                       minLength={3}
                       onChange={onChange}
@@ -199,11 +178,15 @@ useEffect(() => {
                     className="w-full lg:w-2xs px-2 py-4 outline-0 border-b-[1px] border-b-[#25A5DE]"
                   />
                   <div
-                  className="absolute right-2 top-1/3 cursor-pointer"
-                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                >
-                  {showConfirmPassword ? <FiEyeOff size={24} /> : <FiEye size={24} />}
-                </div>
+                    className="absolute right-2 top-1/3 cursor-pointer"
+                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                  >
+                    {showConfirmPassword ? (
+                      <FiEyeOff size={24} />
+                    ) : (
+                      <FiEye size={24} />
+                    )}
+                  </div>
                 </div>
               )}
               <button
@@ -214,10 +197,7 @@ useEffect(() => {
               </button>
             </form>
           </div>
-          <div className="bg-[#25A5DE] hidden lg:w-[30%] lg:h-96 lg:flex lg:justify-center lg:flex-col space-y-5 ">
-          
-           
-          </div>
+          <div className="bg-[#25A5DE] hidden lg:w-[30%] lg:h-96 lg:flex lg:justify-center lg:flex-col space-y-5 "></div>
         </div>
       </div>
     </>
@@ -225,5 +205,3 @@ useEffect(() => {
 };
 
 export default Form;
-              
-  

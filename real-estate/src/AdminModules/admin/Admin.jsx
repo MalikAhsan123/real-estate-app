@@ -35,19 +35,18 @@ const AdminLogin = () => {
           isLogin: false,
         })
       );
-      console.log('ahsan',resultAction.payload.msg)
+      console.log("ahsan", resultAction.payload.msg);
       if (resultAction.payload.success && resultAction.payload.admin) {
-        navigate("/adminDashboard");
+        navigate("/dashboard");
         toast.success("Logged in successfully");
         // dispatch(clearAuthState());
         console.log("Admin login success", resultAction.payload.success);
-      } else if(resultAction.payload.isError) {
+      } else if (resultAction.payload.isError) {
         console.error(
           "Admin login failed",
           resultAction.payload.errorMsg || "Not authorized as admin"
-          
         );
-        toast.error(resultAction.payload.errorMsg)
+        toast.error(resultAction.payload.errorMsg);
       }
     } catch (error) {
       console.error("Something went wrong", error);

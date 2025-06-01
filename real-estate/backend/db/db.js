@@ -1,14 +1,14 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const URI = "mongodb://127.0.0.1:27017/real-estate";
 
 const connectToMongo = async () => {
     try {
         await mongoose.connect(URI);
-        console.log("Connect to mongo succesfully");
+        console.log("Connected to MongoDB successfully");
     } catch (error) {
-        console.log("Failed to connect");
+        console.error("Failed to connect to MongoDB", error);
     }
-}
+};
 
-module.exports = connectToMongo;
+export default connectToMongo;

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "./assets/logo.png";
 import { useSelector, useDispatch } from "react-redux";
 import { logout, clearAuthState } from "../../slices/auth/authSlice";
@@ -12,28 +12,41 @@ import { div } from "motion/react-client";
 
 const Navbar = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   let isLoggedIn = useSelector((state) => state.user.isLoggedIn);
   let userDetail = useSelector((state) => state.user.user);
   console.log("userDetail", userDetail);
   const [isCross, setIsCross] = useState(false);
 
-  useEffect(() => {
-    dispatch(clearAuthState());
-  }, []);
+  
 
   const handleLogout = () => {
     dispatch(logout());
+    navigate('/')
   };
   const toggleHamburgerNavbar = () => {
     setIsCross(!isCross);
   };
+
+  const handleProperties = () => {
+    // if(!isLoggedIn){
+    //   navigate('/login');
+    // }else{
+    //   navigate('/properties')
+    // }
+     navigate('/properties')
+  }
+
+  useEffect(() => {
+    dispatch(clearAuthState());
+  }, []);
 
   return (
     <>
       <div className="bg-[#05344A] text-white flex flex-col items-center py-4 space-y-5 md:space-y-0  md:flex-row md:justify-between md:items-center md:px-20 md:py-4 lg:px-40 ">
         <div className="text-sm font-bold">Call us - 0302-7475533</div>
         <div className="sm:space-x-10 space-x-3 flex justify-center items-center">
-          <button className="bg-[#1290cb] px-4 py-2 md:px-6 md:py-2 rounded-3xl cursor-pointer hover:bg-black border-2 border-[#0776aa]">
+          <button onClick={handleProperties}  className="bg-[#1290cb] px-4 py-2 md:px-6 md:py-2 rounded-3xl cursor-pointer hover:bg-black border-2 border-[#0776aa]" >
             Add Property
           </button>
           {!isLoggedIn && (

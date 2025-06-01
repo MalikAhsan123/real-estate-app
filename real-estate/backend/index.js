@@ -1,8 +1,11 @@
-const express = require("express");
+// const express = require("express");
+import express from "express";
 
-const cors = require("cors");
+// const cors = require("cors");
+import cors from "cors";
 
-const connectToMongo = require('./db/db');
+// const connectToMongo = require('./db/db');
+import connectToMongo from "./db/db.js";
 
 connectToMongo();
 
@@ -15,7 +18,9 @@ const port = process.env.PORT || 3000;
 app.use(express.json());
 
 
-app.use('/api/auth', require('./routes/auth'));
+import authRoutes from "./routes/auth.js";
+app.use('/api/auth', authRoutes);
+
 app.get('/', (req, res) => {
    res.send("Ahsan")
 })
