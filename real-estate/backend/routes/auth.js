@@ -1,7 +1,7 @@
 import express from "express";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import { isEmail} from "one-linear-validator";
+import { isEmail } from "one-linear-validator";
 import User from "../models/user.js";
 import { body, validationResult } from "express-validator";
 
@@ -20,7 +20,7 @@ router.post(
   async (req, res) => {
     let success = false;
     let isError = false;
-    const { name, email, password } = req.body;
+    const { name, lastName, email, password } = req.body;
     const error = await validationResult(req);
     if (!error.isEmpty()) {
       return res.status(400).json({ errors: error.array() });
@@ -28,21 +28,21 @@ router.post(
 
     try {
       let user;
-      if(isEmail(email)){
+      if (isEmail(email)) {
         console.log(isEmail(email))
         user = await User.findOne({ email });
-      if (user) {
-        isError = true;
-        return res
-          .status(400)
-          .json({
-            success,
-            isError,
-            errorMsg: "A user with this email is already exist",
-          });
+        if (user) {
+          isError = true;
+          return res
+            .status(400)
+            .json({
+              success,
+              isError,
+              errorMsg: "A user with this email is already exist",
+            });
+        }
       }
-      }
-      
+
       const salt = await bcrypt.genSalt(10);
       const secPassword = await bcrypt.hash(password, salt);
       user = await User.create({
@@ -65,13 +65,14 @@ router.post(
         login: false,
 
         admin: false,
-        user: { name: user.name, email: user.email, password: user.password,
+        user: {
+          name: user.name, email: user.email, password: user.password,
           lastName: user.lastName
-         },
+        },
 
         user: {
           name: user.name, email: user.email, password: user.password,
-          // lastName: user.lastName
+          lastName: user.lastName
         },
 
       });
@@ -102,8 +103,8 @@ router.post(
     }
 
     try {
-      let user 
-      if(isEmail(email)){
+      let user
+      if (isEmail(email)) {
         console.log(isEmail(email))
         user = await User.findOne({ email });
         if (!user) {
@@ -117,7 +118,7 @@ router.post(
             });
         }
       }
-     
+
 
       const passwordCompare = await bcrypt.compare(password, user.password);
       if (!passwordCompare) {
@@ -143,14 +144,15 @@ router.post(
         login: true,
 
         admin: false,
-        user: { name: user.name, email: user.email, password: user.password, 
-            lastName: user.lastName,
-         },
-            
+        user: {
+          name: user.name, email: user.email, password: user.password,
+          lastName: user.lastName,
+        },
+
 
         user: {
           name: user.name, email: user.email, password: user.password,
-          //  lastName: user.lastName,
+          lastName: user.lastName,
         },
 
 
@@ -172,30 +174,30 @@ router.post('/adminlogin', [
 ], async (req, res) => {
   let success = false;
   let isError = false;
-  const {email, password} = req.body;
+  const { email, password } = req.body;
   const error = await validationResult(req);
   if (!error.isEmpty()) {
     return res.status(400).json({ errors: error.array() });
   }
 
   try {
-    let user = await User.findOne({email});
-    if(!user){
+    let user = await User.findOne({ email });
+    if (!user) {
       isError = true;
-      return res.status(400).json({success, isError, errorMsg: "Please try to login with correct credential"})
+      return res.status(400).json({ success, isError, errorMsg: "Please try to login with correct credential" })
     }
-  
+
     const passwordCompare = await bcrypt.compare(password, user.password);
-    if(!passwordCompare){
+    if (!passwordCompare) {
       isError = true;
-      return res.status(400).json({success, isError, errorMsg: "Please try to login with correct credential"});
+      return res.status(400).json({ success, isError, errorMsg: "Please try to login with correct credential" });
     }
-  
-    if(user.isAdmin !== "true"){
+
+    if (user.isAdmin !== "true") {
       isError = true;
-      return res.status(400).json({success, isError, errorMsg: "You do not have permission to access Admin"})
+      return res.status(400).json({ success, isError, errorMsg: "You do not have permission to access Admin" })
     }
-  
+
     const data = {
       user: {
         id: user.id,
@@ -208,16 +210,17 @@ router.post('/adminlogin', [
       token,
       login: false,
       admin: true,
-      user: { name: user.name, email: user.email, password: user.password, 
+      user: {
+        name: user.name, email: user.email, password: user.password,
         lastName: user.lastName, userRole: user.isAdmin,
-     },
+      },
     })
   } catch (error) {
     console.error(error.message);
-      isError = true;
-      return res
-        .status(500)
-        .json({isError, errorMsg: "Some internal error occuered" });
+    isError = true;
+    return res
+      .status(500)
+      .json({ isError, errorMsg: "Some internal error occuered" });
   }
 
 
@@ -230,7 +233,7 @@ router.get('/getusers', async (req, res) => {
     return res.status(200).json(users)
   } catch (error) {
     console.error(error);
-    return res.status(500).json({errorMsg: "Some internal error occured"});
+    return res.status(500).json({ errorMsg: "Some internal error occured" });
   }
 
 })
@@ -239,11 +242,11 @@ router.delete('/deleteuser/:id', async (req, res) => {
   try {
     const deleteUser = await User.findByIdAndDelete(req.params.id);
     console.log('user', deleteUser)
-    if(deleteUser){
-      res.status(200).json({message: `User ${deleteUser.name} Deleted susseccfully`})
+    if (deleteUser) {
+      res.status(200).json({ message: `User ${deleteUser.name} Deleted susseccfully` })
     }
   } catch (error) {
-    return res.status(500).json({errorMsg: "Some internal error occured"});
+    return res.status(500).json({ errorMsg: "Some internal error occured" });
   }
 })
 
