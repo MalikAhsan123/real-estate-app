@@ -6,8 +6,9 @@ import phoneImg from './assets/telephone.png'
 const Contact = () => {
   return (
     <div className='contact-container'>
-      <div className="contact-header flex justify-center h-52 items-center bg-cover" style={{ backgroundImage: `url(${contactImg})` }}>
-        <h1 className='text-3xl text-white font-bold'>Contact Us</h1>
+      <div className="contact-header text-white flex flex-col justify-center h-52 items-center bg-cover" style={{ backgroundImage: `url(${contactImg})` }}>
+        <h1 className='text-3xl font-bold'>Contact Us</h1>
+        <p className="">Home - Contact Us</p>
       </div>
       <div className="contact-form flex px-40 py-16 max-xl:px-20 max-md:flex-col max-md:px-8">
         <div className="contact-element mr-10 max-md:mr-0">

@@ -21,8 +21,9 @@ const About = () => {
     return (
         <div className=''>
             <div className="about-container w-[100%]" >
-                <div className="box h-52 flex justify-center items-center text-white" style={{ backgroundImage: `url(${aboutImage})` }}>
+                <div className="box h-52 flex flex-col justify-center items-center text-white" style={{ backgroundImage: `url(${aboutImage})` }}>
                     <h1 className='text-3xl font-bold'>About</h1>
+                    <p className="">Home - About</p>
                 </div>
             </div>
             <div className="about-section flex px-10 py-14 max-md:flex-col max-md:justify-center max-md:items-center">
