@@ -4,7 +4,7 @@ import Property from '../../../backend/models/property';
 
 const AddProperty = () => {
     const [formData, setFormData] = useState({
-        Propertyname: '',
+        propertyname: '',
         price: '',
         location: '',
         type: '',
@@ -31,6 +31,31 @@ const AddProperty = () => {
         }));
     };
 
+    // const handleSubmit = async (e) => {
+    //     e.preventDefault();
+
+    //     const form = new FormData();
+    //     for (const key in formData) {
+    //         form.append(key, formData[key]);
+    //     }
+
+    //     try {
+    //         const response = await fetch('http://localhost:3000/api/properties/addproperty', {
+    //             method: 'POST',
+    //             body: form,
+    //         });
+
+    //         const data = await response.json();
+    //         if (response.ok) {
+    //             alert('Property added successfully!');
+    //         } else {
+    //             alert('Error: ' + data.message);
+    //         }
+    //     } catch (err) {
+    //         console.error(err);
+    //         alert('Failed to submit form');
+    //     }
+    // };
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -48,6 +73,23 @@ const AddProperty = () => {
             const data = await response.json();
             if (response.ok) {
                 alert('Property added successfully!');
+
+                // ✅ Reset the form
+                setFormData({
+                    propertyname: '',
+                    price: '',
+                    location: '',
+                    type: '',
+                    bedrooms: '',
+                    bathrooms: '',
+                    garage: '',
+                    area: '',
+                    description: '',
+                    image: '',
+                });
+
+                // ✅ Optional: clear file input (if needed manually)
+                document.querySelector('input[type="file"]').value = '';
             } else {
                 alert('Error: ' + data.message);
             }
@@ -87,6 +129,7 @@ const AddProperty = () => {
                                     onChange={handleChange}
                                     className="w-full p-2 border border-gray-300 rounded-xl"
                                     placeholder="Enter property name"
+                                    required
                                 />
                             </div>
                             <div className="md:w-3/12">
@@ -98,6 +141,7 @@ const AddProperty = () => {
                                     onChange={handleChange}
                                     className="w-full p-2 border border-gray-300 rounded-xl"
                                     placeholder="Enter Price"
+                                    required
                                 />
                             </div>
                         </div>
@@ -113,6 +157,7 @@ const AddProperty = () => {
                                     onChange={handleChange}
                                     className="w-full p-2 border border-gray-300 rounded-xl"
                                     placeholder="Enter Location"
+                                    required
                                 />
                             </div>
                             <div className="md:w-1/2">
@@ -124,6 +169,7 @@ const AddProperty = () => {
                                     onChange={handleChange}
                                     className="w-full p-2 border border-gray-300 rounded-xl"
                                     placeholder="Rent or Sale"
+                                    required
                                 />
                             </div>
                         </div>
@@ -136,6 +182,7 @@ const AddProperty = () => {
                                 accept="image/*"
                                 onChange={handleImageChange}
                                 className="w-full p-2 border border-gray-300 rounded-xl"
+                                required
                             />
                         </div>
 
@@ -150,7 +197,7 @@ const AddProperty = () => {
                                     onChange={handleChange}
                                     className="w-full p-2 border border-gray-300 rounded-xl"
                                     placeholder="No of BedRooms"
-
+                                    required
                                 />
                             </div>
                             <div className="md:w-1/4">
@@ -162,7 +209,7 @@ const AddProperty = () => {
                                     onChange={handleChange}
                                     className="w-full p-2 border border-gray-300 rounded-xl"
                                     placeholder="No of BathRooms"
-
+                                    required
                                 />
                             </div>
                             <div className="md:w-1/4">
@@ -174,6 +221,7 @@ const AddProperty = () => {
                                     onChange={handleChange}
                                     className="w-full p-2 border border-gray-300 rounded-xl"
                                     placeholder="No of Garage"
+                                    required
                                 />
                             </div>
                             <div className="md:w-1/4">
@@ -185,6 +233,7 @@ const AddProperty = () => {
                                     onChange={handleChange}
                                     className="w-full p-2 border border-gray-300 rounded-xl"
                                     placeholder="Area"
+                                    required
 
                                 />
                             </div>
@@ -200,6 +249,7 @@ const AddProperty = () => {
                                 className="w-full p-2 border border-gray-300 rounded-xl"
                                 rows="4"
                                 placeholder="Enter property description"
+                                required
                             ></textarea>
                         </div>
 

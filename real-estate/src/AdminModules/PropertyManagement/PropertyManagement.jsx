@@ -30,7 +30,7 @@ const PropertyManagement = () => {
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this property?")) return;
     try {
-      await axios.delete(`/api/properties/${id}`);
+      await axios.delete(`http://localhost:3000/api/properties/${id}`);
       setProperties(properties.filter((p) => p._id !== id));
     } catch (err) {
       console.error("Delete failed", err);

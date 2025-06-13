@@ -71,4 +71,16 @@ router.delete('/:id', async (req, res) => {
         res.status(500).json({ message: 'Error deleting property' });
     }
 });
+
+// GET /api/properties/count
+router.get('/count', async (req, res) => {
+  try {
+    const count = await Property.countDocuments();
+    res.json({ count });
+  } catch (err) {
+    res.status(500).json({ message: 'Error fetching property count' });
+  }
+});
+
+
 export default router;

@@ -51,12 +51,12 @@ const Properties = () => {
           {properties.map((property) => (
             <div
               key={property._id}
-              className="w-full md:w-[30%] bg-white rounded-xl shadow-md overflow-hidden flex flex-col"
+              className="w-full md:w-[25%] bg-white rounded-xl shadow-md overflow-hidden flex flex-col"
             >
               <img
                 src={`http://localhost:3000${property.image}`}
                 alt={property.propertyname}
-                className="h-56 w-full object-cover hover:scale-105 duration-300"
+                className="h-56 w-full object-fill hover:scale-110 duration-300"
               />
               <div className="p-4 flex-1 flex flex-col justify-between">
                 <h2 className="text-indigo-600 font-semibold text-lg">{property.propertyname}</h2>

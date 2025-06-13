@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
+import axios from "axios";
 import { Home, Users, Building } from "lucide-react";
 import UserManagement from "../UserManagement/UserManagement.jsx";
 import PropertyManagement from "../PropertyManagement/PropertyManagement.jsx";
@@ -9,48 +10,55 @@ import { getUsers } from "../../slices/allUsers/getuserSlice";
 
 const Dashboard = () => {
   const [activeSection, setActiveSection] = useState("dashboard");
+  const [count, setCount] = useState(0);
+
 
   const dispatch = useDispatch();
- 
+
   const users = useSelector((state) => state.allUsers.users);
   useEffect(() => {
     dispatch(getUsers()); // initial fetch
-  }, [activeSection]);
- 
+  }, [activeSection]),
 
- 
+    useEffect(() => {
+      // ✅ Fetch property count
+      axios.get("http://localhost:3000/api/properties/count")
+        .then((res) => setCount(res.data.count))
+        .catch((err) => console.error(err));
+    }, []);
+    
   return (
     <div className="flex min-h-screen min-w-fit bg-gray-100 relative">
       <div className="lg:w-64">
- <aside className="hidden lg:flex w-64 h-full bg-[#05344A] text-white flex-col p-6 shadow-lg fixed left-0 top-0 z-10">
-        <h1 className="text-2xl font-bold mb-10">Admin Panel</h1>
-        <nav className="space-y-4">
-          <div
-            className="flex items-center space-x-3 hover:text-[#25A5DE] cursor-pointer"
-            onClick={() => setActiveSection("dashboard")}
-          >
-            <Home size={20} />
-            <span>Dashboard</span>
-          </div>
-          <div
-            className="flex items-center space-x-3 hover:text-[#25A5DE] cursor-pointer"
-            onClick={() => setActiveSection("users")}
-          >
-            <Users size={20} />
-            <span>Users</span>
-          </div>
-          <div
-            className="flex items-center space-x-3 hover:text-[#25A5DE] cursor-pointer"
-            onClick={() => setActiveSection("properties")}
-          >
-            <Building size={20} />
-            <span>Properties</span>
-          </div>
-        </nav>
-      </aside>
+        <aside className="hidden lg:flex w-64 h-full bg-[#05344A] text-white flex-col p-6 shadow-lg fixed left-0 top-0 z-10">
+          <h1 className="text-2xl font-bold mb-10">Admin Panel</h1>
+          <nav className="space-y-4">
+            <div
+              className="flex items-center space-x-3 hover:text-[#25A5DE] cursor-pointer"
+              onClick={() => setActiveSection("dashboard")}
+            >
+              <Home size={20} />
+              <span>Dashboard</span>
+            </div>
+            <div
+              className="flex items-center space-x-3 hover:text-[#25A5DE] cursor-pointer"
+              onClick={() => setActiveSection("users")}
+            >
+              <Users size={20} />
+              <span>Users</span>
+            </div>
+            <div
+              className="flex items-center space-x-3 hover:text-[#25A5DE] cursor-pointer"
+              onClick={() => setActiveSection("properties")}
+            >
+              <Building size={20} />
+              <span>Properties</span>
+            </div>
+          </nav>
+        </aside>
       </div>
       {/* Sidebar */}
-     
+
 
       {/* Top Navbar for Mobile */}
       <nav className="fixed top-0 left-0 w-full bg-[#05344A] text-white p-4 flex justify-between items-center lg:hidden z-50">
@@ -97,7 +105,7 @@ const Dashboard = () => {
               </div>
               <div className="bg-[#25A5DE] text-white p-6 rounded-2xl shadow-md">
                 <h3 className="text-lg font-semibold">Total Properties</h3>
-                <p className="text-3xl font-bold mt-2">320</p>
+                <p className="text-3xl font-bold mt-2">{count}</p>
               </div>
               <div className="bg-white p-6 rounded-2xl shadow-md">
                 <h3 className="text-lg font-semibold text-gray-700">Revenue</h3>
