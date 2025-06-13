@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { useDispatch, useSelector} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getUsers } from "../../slices/allUsers/getuserSlice";
 import { deleteUser } from "../../slices/deleteUser/deleteUser";
 import { ToastContainer } from "react-toastify";
@@ -9,26 +9,26 @@ import { toast } from "react-toastify";
 const UserManagement = () => {
   const [showModal, setShowModal] = useState(false);
   const [userId, setUserId] = useState("");
- let users = useSelector((state) => state.allUsers.users)
- const msg = useSelector((state) => state.deleteUser.msg)
- console.log('msg', msg)
- console.log('ahsan', users[0])
- const dispatch = useDispatch();
+  let users = useSelector((state) => state.allUsers.users)
+  const msg = useSelector((state) => state.deleteUser.msg)
+  console.log('msg', msg)
+  console.log('ahsan', users[0])
+  const dispatch = useDispatch();
 
 
-   const handleDelete = (id) => {
+  const handleDelete = (id) => {
     setShowModal(true);
     setUserId(id);
-   }
-   const userDelete = async () => {
+  }
+  const userDelete = async () => {
     setShowModal(false);
     await dispatch(deleteUser(userId));
-     toast.success(msg);
+    toast.success(msg);
     dispatch(getUsers());
-   }
-    useEffect(() => {
-     dispatch(getUsers()); // initial fetch
-   }, []);
+  }
+  useEffect(() => {
+    dispatch(getUsers()); // initial fetch
+  }, []);
 
   return (
     <motion.div

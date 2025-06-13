@@ -1,4 +1,3 @@
-// const mongoose = require('mongoose');
 import mongoose from "mongoose";
 
 const { Schema } = mongoose;
@@ -17,7 +16,7 @@ const PropertySchema = new Schema({
     },
     type: {
         type: String,
-        enum: ['Rent', 'Sale'], // restrict to Rent or Sale
+        enum: ['Rent','rent', 'Sale','sale'], // restrict to Rent or Sale
         required: true
     },
     image: {
@@ -44,10 +43,6 @@ const PropertySchema = new Schema({
         type: String,
         required: true
     },
-    createdAt: {
-        type: Date,
-        default: Date.now
-    }
-});
+})
 const Property = mongoose.model('property', PropertySchema);
 export default Property;
