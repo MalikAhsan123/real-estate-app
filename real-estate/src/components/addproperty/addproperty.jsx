@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import bgImage from './assets/breadcrumb.jpg';
+import { useNavigate } from 'react-router-dom';
 import Property from '../../../backend/models/property';
-
+    
 const AddProperty = () => {
+    const navigate = useNavigate();
+
     const [formData, setFormData] = useState({
         propertyname: '',
         price: '',
@@ -31,31 +34,6 @@ const AddProperty = () => {
         }));
     };
 
-    // const handleSubmit = async (e) => {
-    //     e.preventDefault();
-
-    //     const form = new FormData();
-    //     for (const key in formData) {
-    //         form.append(key, formData[key]);
-    //     }
-
-    //     try {
-    //         const response = await fetch('http://localhost:3000/api/properties/addproperty', {
-    //             method: 'POST',
-    //             body: form,
-    //         });
-
-    //         const data = await response.json();
-    //         if (response.ok) {
-    //             alert('Property added successfully!');
-    //         } else {
-    //             alert('Error: ' + data.message);
-    //         }
-    //     } catch (err) {
-    //         console.error(err);
-    //         alert('Failed to submit form');
-    //     }
-    // };
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -73,8 +51,6 @@ const AddProperty = () => {
             const data = await response.json();
             if (response.ok) {
                 alert('Property added successfully!');
-
-                // ✅ Reset the form
                 setFormData({
                     propertyname: '',
                     price: '',
@@ -87,9 +63,9 @@ const AddProperty = () => {
                     description: '',
                     image: '',
                 });
-
-                // ✅ Optional: clear file input (if needed manually)
                 document.querySelector('input[type="file"]').value = '';
+                
+                navigate('/admin/properties'); // ✅ update this to your correct route
             } else {
                 alert('Error: ' + data.message);
             }
@@ -97,7 +73,79 @@ const AddProperty = () => {
             console.error(err);
             alert('Failed to submit form');
         }
-    };
+   
+};
+
+    // const [formData, setFormData] = useState({
+    //     propertyname: '',
+    //     price: '',
+    //     location: '',
+    //     type: '',
+    //     bedrooms: '',
+    //     bathrooms: '',
+    //     garage: '',
+    //     area: '',
+    //     description: '',
+    //     image: '',
+    // });
+
+    // const handleChange = (e) => {
+    //     const { name, value } = e.target;
+    //     setFormData((prev) => ({
+    //         ...prev,
+    //         [name]: value,
+    //     }));
+    // };
+
+    // const handleImageChange = (e) => {
+    //     setFormData((prev) => ({
+    //         ...prev,
+    //         image: e.target.files[0],
+    //     }));
+    // };
+
+    // const handleSubmit = async (e) => {
+    //     e.preventDefault();
+
+    //     const form = new FormData();
+    //     for (const key in formData) {
+    //         form.append(key, formData[key]);
+    //     }
+
+    //     try {
+    //         const response = await fetch('http://localhost:3000/api/properties/addproperty', {
+    //             method: 'POST',
+    //             body: form,
+    //         });
+
+    //         const data = await response.json();
+    //         if (response.ok) {
+    //             alert('Property added successfully!');
+
+    //             // ✅ Reset the form
+    //             setFormData({
+    //                 propertyname: '',
+    //                 price: '',
+    //                 location: '',
+    //                 type: '',
+    //                 bedrooms: '',
+    //                 bathrooms: '',
+    //                 garage: '',
+    //                 area: '',
+    //                 description: '',
+    //                 image: '',
+    //             });
+
+    //             // ✅ Optional: clear file input (if needed manually)
+    //             document.querySelector('input[type="file"]').value = '';
+    //         } else {
+    //             alert('Error: ' + data.message);
+    //         }
+    //     } catch (err) {
+    //         console.error(err);
+    //         alert('Failed to submit form');
+    //     }
+    // };
 
     return (
         <div className="addpropertySection">

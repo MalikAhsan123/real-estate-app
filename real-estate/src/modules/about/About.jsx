@@ -9,11 +9,7 @@ import buyImg from './assets/buy.png';
 import saleImg from './assets/sale.png';
 import serviceImg from './assets/service.png';
 import replaceImg from './assets/replace.png';
-import clint1Img from './assets/01.png';
-import clint2Img from './assets/02.png';
-import clint3Img from './assets/03.png';
-import clint4Img from './assets/04.png';
-import clint5Img from './assets/05.png';
+
 
 
 const About = () => {
@@ -114,23 +110,6 @@ const About = () => {
                     </div>
                 </div>
             </div>
-            {/* <div className="client-section flex justify-evenly py-10 px-10">
-                <div className="">
-                    <img src={clint1Img} alt="Image Not Found" className="" />
-                </div>
-                <div className="">
-                    <img src={clint2Img} alt="Image Not Found" className="" />
-                </div>
-                <div className="">
-                    <img src={clint3Img} alt="Image Not Found" className="" />
-                </div>
-                <div className="">
-                    <img src={clint4Img} alt="Image Not Found" className="" />
-                </div>
-                <div className="">
-                    <img src={clint5Img} alt="Image Not Found" className="" />
-                </div>
-            </div> */}
         </div>
     )
 }
